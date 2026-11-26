@@ -1,0 +1,18 @@
+# Dependencies
+node_modules/
+
+# Build & release outputs (attached to GitHub Releases instead of git history)
+dist/
+release/
+src-tauri/target/
+
+# Downloaded sidecar binaries (re-fetched via `npm run fetch-sidecars`)
+src-tauri/binaries/*
+!src-tauri/binaries/.gitkeep
+
+# Local runtime state & OS artifacts
+*.log
+.DS_Store
+Thumbs.db
+.env
+.env.local

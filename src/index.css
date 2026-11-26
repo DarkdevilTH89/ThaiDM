@@ -1,0 +1,51 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html,
+  body,
+  #root {
+    height: 100%;
+    overflow: hidden;
+    background-color: #f8fafc;
+    color: #0f172a;
+    font-family: "Segoe UI", "Inter", "Noto Sans Thai", system-ui, -apple-system, sans-serif;
+  }
+}
+
+/* Classic Glossy Royal Blue desktop chrome */
+.royal-gloss-bar {
+  background: linear-gradient(180deg, #2b63f1 0%, #2563eb 48%, #1d4ed8 52%, #1e40af 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.35),
+    inset 0 -1px 0 rgba(15, 23, 42, 0.25);
+}
+
+.royal-gloss-btn {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.04) 50%, rgba(15, 23, 42, 0.08) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.28);
+}
+
+.royal-gloss-btn:hover:not(:disabled) {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.28) 0%, rgba(255, 255, 255, 0.1) 50%, rgba(30, 64, 175, 0.2) 100%);
+  border-color: rgba(255, 255, 255, 0.45);
+}
+
+.royal-gloss-btn:active:not(:disabled) {
+  background: linear-gradient(180deg, rgba(15, 23, 42, 0.18) 0%, rgba(30, 64, 175, 0.25) 100%);
+  box-shadow: inset 0 1px 3px rgba(15, 23, 42, 0.35);
+}
+
+.royal-gloss-active {
+  background: linear-gradient(180deg, #2563eb 0%, #1d4ed8 55%, #1e40af 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.35),
+    0 1px 2px rgba(30, 64, 175, 0.25);
+}
+
+.royal-progress-fill {
+  background: linear-gradient(180deg, #60a5fa 0%, #2563eb 45%, #1e40af 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45);
+}

@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ไทยDM — Download Manager</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        width: 310px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        background: #f8fafc;
+        color: #0f172a;
+      }
+      .header {
+        background: linear-gradient(180deg, #3b82f6 0%, #2563eb 46%, #1e40af 50%, #1d4ed8 100%);
+        color: #ffffff;
+        padding: 12px 14px;
+        border-bottom: 1px solid #1e3a8a;
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+      }
+      .brand img {
+        width: 24px;
+        height: 24px;
+        border-radius: 6px;
+        box-shadow: 0 2px 6px rgba(15, 23, 42, 0.35);
+      }
+      .brand-title {
+        font-size: 14px;
+        font-weight: 700;
+        line-height: 1.15;
+      }
+      .brand-sub {
+        font-size: 10px;
+        color: #dbeafe;
+      }
+      .content {
+        padding: 12px 14px 14px;
+        display: flex;
+        flex-direction: column;
+        gap: 11px;
+      }
+      .status-card {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 9px 11px;
+        border-radius: 8px;
+        border: 1px solid #cbd5e1;
+        background: #ffffff;
+      }
+      .status-left {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .dot {
+        width: 9px;
+        height: 9px;
+        border-radius: 999px;
+        background: #94a3b8;
+        flex-shrink: 0;
+      }
+      .dot.online {
+        background: #10b981;
+        box-shadow: 0 0 7px rgba(16, 185, 129, 0.7);
+      }
+      .status-title {
+        font-size: 12px;
+        font-weight: 700;
+        color: #1e293b;
+      }
+      .status-title.online {
+        color: #065f46;
+      }
+      .status-sub {
+        font-size: 10px;
+        color: #64748b;
+        font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      }
+      .refresh-btn {
+        border: 1px solid #cbd5e1;
+        background: #f1f5f9;
+        color: #334155;
+        font-size: 11px;
+        font-weight: 600;
+        border-radius: 6px;
+        padding: 4px 8px;
+        cursor: pointer;
+      }
+      .refresh-btn:hover {
+        background: #e2e8f0;
+      }
+      .toggle-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        padding: 9px 11px;
+        border-radius: 8px;
+        border: 1px solid #cbd5e1;
+        background: #ffffff;
+      }
+      .toggle-text {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+      .toggle-label {
+        font-size: 12px;
+        font-weight: 600;
+        color: #0f172a;
+      }
+      .toggle-desc {
+        font-size: 10.5px;
+        color: #64748b;
+      }
+      .switch {
+        position: relative;
+        display: inline-block;
+        width: 38px;
+        height: 21px;
+        flex-shrink: 0;
+      }
+      .switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+      .slider {
+        position: absolute;
+        inset: 0;
+        cursor: pointer;
+        border-radius: 999px;
+        background: #cbd5e1;
+        transition: background 0.18s ease;
+      }
+      .slider::before {
+        content: "";
+        position: absolute;
+        width: 15px;
+        height: 15px;
+        left: 3px;
+        bottom: 3px;
+        border-radius: 999px;
+        background: #ffffff;
+        box-shadow: 0 1px 3px rgba(15, 23, 42, 0.3);
+        transition: transform 0.18s ease;
+      }
+      .switch input:checked + .slider {
+        background: linear-gradient(180deg, #2563eb 0%, #1e40af 100%);
+      }
+      .switch input:checked + .slider::before {
+        transform: translateX(17px);
+      }
+      .primary-btn {
+        width: 100%;
+        border: 1px solid #1d4ed8;
+        border-radius: 8px;
+        padding: 9px 12px;
+        color: #ffffff;
+        font-size: 12.5px;
+        font-weight: 700;
+        cursor: pointer;
+        background: linear-gradient(180deg, #3b82f6 0%, #2563eb 48%, #1e40af 52%, #1d4ed8 100%);
+        box-shadow:
+          inset 0 1px 0 rgba(255, 255, 255, 0.35),
+          0 2px 6px rgba(30, 64, 175, 0.25);
+        transition: opacity 0.15s ease;
+      }
+      .primary-btn:hover {
+        opacity: 0.94;
+      }
+      .primary-btn:disabled {
+        opacity: 0.55;
+        cursor: not-allowed;
+      }
+      .feedback {
+        min-height: 16px;
+        font-size: 11px;
+        text-align: center;
+        color: #475569;
+      }
+      .feedback.ok {
+        color: #047857;
+        font-weight: 600;
+      }
+      .feedback.err {
+        color: #b91c1c;
+        font-weight: 600;
+      }
+      .footer {
+        border-top: 1px solid #cbd5e1;
+        background: #f1f5f9;
+        padding: 7px 14px;
+        font-size: 10px;
+        color: #64748b;
+        display: flex;
+        justify-content: space-between;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="header">
+      <div class="brand">
+        <img src="icons/icon48.png" alt="ไทยDM" />
+        <div>
+          <div class="brand-title">ไทยDM</div>
+          <div class="brand-sub">Browser Bridge Connector</div>
+        </div>
+      </div>
+    </header>
+
+    <main class="content">
+      <section class="status-card">
+        <div class="status-left">
+          <span class="dot" id="status-dot"></span>
+          <div>
+            <div class="status-title" id="status-title">Checking connection...</div>
+            <div class="status-sub" id="status-sub">127.0.0.1:17890</div>
+          </div>
+        </div>
+        <button class="refresh-btn" id="refresh-btn" type="button">Retry</button>
+      </section>
+
+      <section class="toggle-row">
+        <div class="toggle-text">
+          <span class="toggle-label">Intercept Browser Downloads</span>
+          <span class="toggle-desc">Send archives, PDFs, installers &amp; videos to ไทยDM</span>
+        </div>
+        <label class="switch" aria-label="Intercept Browser Downloads">
+          <input type="checkbox" id="intercept-toggle" checked />
+          <span class="slider"></span>
+        </label>
+      </section>
+
+      <button class="primary-btn" id="grab-tab-btn" type="button">
+        Grab Video from Current Tab
+      </button>
+
+      <div class="feedback" id="feedback"></div>
+    </main>
+
+    <footer class="footer">
+      <span>Loopback-only bridge</span>
+      <span>Chrome · Edge · Brave · Firefox</span>
+    </footer>
+
+    <script src="popup.js"></script>
+  </body>
+</html>

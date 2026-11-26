@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WixLocalization Culture="en-us" Codepage="874" xmlns="http://schemas.microsoft.com/wix/2006/localization">
+  <String Id="TauriLanguage">1033</String>
+  <String Id="TauriCodepage">874</String>
+  <String Id="LaunchApp">Launch ไทยDM</String>
+  <String Id="DowngradeErrorMessage">A newer version of ไทยDM is already installed.</String>
+  <String Id="PathEnvVarFeature">Add the install location of the ไทยDM executable to the PATH system environment variable. This allows the ไทยDM executable to be called from any location.</String>
+  <String Id="InstallAppFeature">Installs ไทยDM.</String>
+</WixLocalization>
